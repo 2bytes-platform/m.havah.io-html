@@ -140,7 +140,9 @@
             </li>
           </ul>
           <div class="swiper-pagination pagination_bullet"></div>
-          <div class="swiper-pagination pagination_progress"></div>
+          <div class="pagination_progress">
+            <span class="bar"></span>
+          </div>
         </div>
       </section>
       <!-- E :: visual -->
@@ -333,9 +335,8 @@
               </div>
             </li>
           </ul>
-          <!-- <div class="swiper-pagination pagination_progress"></div> -->
-          <div class="progressbar__wrap">
-            <span class="progressbar"></span>
+          <div class="swiper-scrollbar">
+            <span class="slide-bar"></span>
           </div>
         </div>
         <!-- // mobile 용 -->
@@ -501,9 +502,11 @@
   <script>
     // visual
     var visualSwiper = new Swiper('.visual-swiper.swiper-container', {
+      loop: true,
       autoplay: {
-        delay: 4000
+        delay: 3000
       },
+      disableOnInteraction: true,
       pagination: {
         el: ".visual-swiper .pagination_bullet",
         clickable: true,
@@ -512,47 +515,62 @@
       observeParents: true,
       observeSlideChildren: true,
       observer: true,
-    });
-    var pagingSwiper = new Swiper('.visual-swiper.swiper-container', {
-      pagination: {
-        el: ".visual-swiper .pagination_progress",
-        type: "progressbar"
-      },
-    });
-    visualSwiper.controller.control = pagingSwiper;
-
-    // news swiper
-    var swiperCont = document.querySelector('.news-swiper');
-    var swiperLen = document.querySelectorAll('.news-swiper .swiper-slide').length;
-    var progressbar = swiperCont.querySelector('.progressbar');
-
-    // if (window.innerWidth <= 767) {
-    swiperCont.querySelectorAll('li').forEach((item, idx) => {
-      item.setAttribute('data-idx', idx + 1)
-    })
-    var newsSwiper = new Swiper('.news-swiper.swiper-container', {
-      slidesPerView: 'auto',
-      freeMode: true,
-      momentumRatio: .7,
-      momentumBounceRatio: .5,
       on: {
         init: function () {
-          if (window.innerWidth <= 767) {
-            _activeItem = document.querySelector('.news-swiper .swiper-slide-active');
-            progressbar.style.width = (100 / swiperLen) * (Number(_activeItem.getAttribute('data-idx'))) + '%'
-          }
+          $('.visual-swiper .pagination_progress .bar').css('width', 0)
+          $('.visual-swiper .pagination_progress .bar').stop().animate({ 'width': '100%' }, 3000)
         },
-        slideChangeTransitionEnd: function () {
-          if (window.innerWidth <= 767) {
-            _activeItem = document.querySelector('.news-swiper .swiper-slide-active');
-            progressbar.style.width = (100 / swiperLen) * (Number(_activeItem.getAttribute('data-idx'))) + '%';
-          }
+        slideChange: function () {
+          $('.visual-swiper .pagination_progress .bar').css('width', 0)
+          $('.visual-swiper .pagination_progress .bar').stop().animate({ 'width': '100%' }, 3000)
+        }
+      }
+    });
+
+    // news swiper
+    var swiperCont = $('.news-swiper');
+    var _scrollbar = swiperCont.find('.slide-bar');
+    var swiperScrollbar = '';
+    var scrollbarWid = 0;
+    var translate = [];
+    var sMatrix = '';
+
+    var newsSwiper = new Swiper('.news-swiper.swiper-container', {
+      slidesPerView: 'auto',
+      observeParents: true,
+      observeSlideChildren: true,
+      observer: true,
+      scrollbar: {
+        el: ".news-swiper .swiper-scrollbar",
+        hide: false,
+        draggable: true
+      },
+      on: {
+        sliderMove: function () {
+          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+
         },
-        resize: function () {
-          if (window.innerWidth <= 767) {
-            _activeItem = document.querySelector('.news-swiper .swiper-slide-active');
-            progressbar.style.width = (100 / swiperLen) * (Number(_activeItem.getAttribute('data-idx'))) + '%';
-          }
+        transitionEnd: function () {
+          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+        },
+        scrollbarDragMove: function () {
+          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+
+        },
+        scrollbarDragEnd: function () {
+          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
         }
       }
     });

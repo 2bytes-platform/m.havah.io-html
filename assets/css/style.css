@@ -877,7 +877,17 @@ html.fixed {
   background: var(--color-black-300);
 }
 .pagination_progress {
+  position: absolute;
+  top: 0;
   width: 100%;
+  z-index: 2;
+}
+.pagination_progress .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  background-color: var(--color-point);
 }
 .pagination_progress .swiper-pagination-progressbar-fill {
   display: block;
@@ -924,6 +934,69 @@ html.fixed {
   background-size: cover;
   z-index: 2;
 }
+.swiper-container .swiper-scrollbar {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  width: calc(100% - 3.2rem);
+  height: 2px;
+  margin: 4.5rem 1.6rem 1.2rem;
+  background: var(--color-black-300);
+}
+.swiper-container .swiper-scrollbar .swiper-scrollbar-drag {
+  background: var(--color-point);
+  z-index: 3;
+}
+.swiper-container .swiper-scrollbar .swiper-scrollbar-drag:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: -1.2rem;
+  background: url(../images/icon_progressbar_handler.svg) no-repeat center center;
+  background-size: cover;
+  z-index: 2;
+}
+.swiper-container .swiper-scrollbar .slide-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-point);
+  /* transition: width 100ms; */
+  z-index: 1;
+}
+/* 
+.dapps-shot .swiper-scrollbar {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  width: calc(100% - 3.2rem);
+  height: 2px;
+  margin: 4.5rem 1.6rem 0;
+  background: var(--color-black-300);
+}
+.dapps-shot .swiper-scrollbar .swiper-scrollbar-drag {
+  background: var(--color-point);
+  z-index: 2;
+}
+.dapps-shot .swiper-scrollbar .swiper-scrollbar-drag:after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: -1.2rem;
+  background: url(../images/icon_progressbar_handler.svg) no-repeat center center;
+  background-size: cover;
+  z-index: 2;
+} */
 
 /* .pagination_progress .progressbar-handler {
   display: block;
@@ -1619,6 +1692,7 @@ html.fixed {
 .dapps-shot {
   position: relative;
   margin-top: -8.6rem;
+  padding-bottom: 1.2rem;
   z-index: 3;
 }
 .dapps-shot li {

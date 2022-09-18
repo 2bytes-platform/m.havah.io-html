@@ -139,10 +139,12 @@
               </div>
             </li>
           </ul>
-          <div class="progressbar__wrap">
-            <span class="progressbar"></span>
+
+          <div class="swiper-scrollbar">
+            <span class="slide-bar"></span>
           </div>
         </div>
+
 
         <div class="dapps__info d-none--tb">
           <div class="item">
@@ -224,33 +226,56 @@
   <script>
 
     // swiper
-    var swiperCont = document.querySelector('.dapps-shot');
-    var swiperLen = document.querySelectorAll('.dapps-shot .swiper-slide').length;
-    var progressbar = swiperCont.querySelector('.progressbar');
-    var _activeItem = '';
+    var swiperCont = $('.dapps-shot');
+    var _scrollbar = swiperCont.find('.slide-bar');
+    var swiperScrollbar = '';
+    var scrollbarWid = 0;
+    var translate = [];
+    var sMatrix = '';
+
     var shotSwiper = new Swiper('.dapps-shot.swiper-container', {
       slidesPerView: 1,
-      loop: true,
-      autoplay: {
-        delay: 4000
-      },
       breakpoints: {
         767: {
           slidesPerView: 2,
         }
       },
+      scrollbar: {
+        el: ".dapps-shot .swiper-scrollbar",
+        hide: false,
+        draggable: true
+      },
       on: {
-        init: function () {
-          _activeItem = document.querySelector('.dapps-shot .swiper-slide-active');
-          progressbar.style.width = (100 / swiperLen) * (Number(_activeItem.getAttribute('data-swiper-slide-index')) + 1) + '%'
+        sliderMove: function () {
+          swiperScrollbar = $('.dapps-shot .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
         },
-        slideChangeTransitionEnd: function () {
-          _activeItem = document.querySelector('.dapps-shot .swiper-slide-active');
-          progressbar.style.width = (100 / swiperLen) * (Number(_activeItem.getAttribute('data-swiper-slide-index')) + 1) + '%';
-        }
+        transitionEnd: function () {
+          swiperScrollbar = $('.dapps-shot .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+        },
+        scrollbarDragMove: function () {
+          swiperScrollbar = $('.dapps-shot .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+
+        },
+        scrollbarDragEnd: function () {
+          swiperScrollbar = $('.dapps-shot .swiper-scrollbar-drag');
+          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+          _scrollbar.css('width', scrollbarWid + 'px')
+        },
       }
     });
-
+    shotSwiper.on('translateTo', function () {
+      console.log('test')
+    })
     imgModal();
   </script>
 </body>
