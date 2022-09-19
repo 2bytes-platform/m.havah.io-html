@@ -505,9 +505,9 @@
     var visualSwiper = new Swiper('.visual-swiper.swiper-container', {
       loop: true,
       autoplay: {
-        delay: 3000
+        delay: 3000,
+        disableOnInteraction: false
       },
-      disableOnInteraction: true,
       pagination: {
         el: ".visual-swiper .pagination_bullet",
         clickable: true,
