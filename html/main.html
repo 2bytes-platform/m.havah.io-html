@@ -141,10 +141,8 @@
           </ul>
           <div class="swiper-pagination pagination_bullet"></div>
 
-          <div class="swiper-scrollbar">
-            <span class="slide-bar">
-
-            </span>
+          <div class="pagination_progress">
+            <span class="bar"></span>
           </div>
         </div>
       </section>
@@ -530,58 +528,113 @@
       }
     });
 
-    // news swiper
-    var swiperCont = $('.news-swiper');
-    var _scrollbar = swiperCont.find('.slide-bar');
-    var swiperScrollbar = '';
-    var scrollbarWid = 0;
-    var translate = [];
-    var sMatrix = '';
+    if($(window).width() <= 767) {
+      // news swiper
+      var swiperCont = $('.news-swiper');
+      var _scrollbar = swiperCont.find('.slide-bar');
+      var swiperScrollbar = '';
+      var scrollbarWid = 0;
+      var translate = [];
+      var sMatrix = '';
 
-    var newsSwiper = new Swiper('.news-swiper.swiper-container', {
-      slidesPerView: 'auto',
-      observeParents: true,
-      observeSlideChildren: true,
-      observer: true,
-      scrollbar: {
-        el: ".news-swiper .swiper-scrollbar",
-        hide: false,
-        draggable: true
-      },
-      on: {
-        sliderMove: function () {
-          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
-          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
-          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
-          _scrollbar.css('width', scrollbarWid + 'px')
+      var newsSwiper = new Swiper('.news-swiper.swiper-container', {
+        slidesPerView: 'auto',
+        observeParents: true,
+        observeSlideChildren: true,
+        observer: true,
+        scrollbar: {
+          el: ".news-swiper .swiper-scrollbar",
+          hide: false,
+          draggable: true
+        },
+        on: {
+          sliderMove: function () {
+            swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+            sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+            scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+            _scrollbar.css('width', scrollbarWid + 'px')
 
-        },
-        transitionEnd: function () {
-          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
-          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
-          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
-          _scrollbar.css('width', scrollbarWid + 'px')
-        },
-        scrollbarDragMove: function () {
-          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
-          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
-          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
-          _scrollbar.css('width', scrollbarWid + 'px')
+          },
+          transitionEnd: function () {
+            swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+            sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+            scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+            _scrollbar.css('width', scrollbarWid + 'px')
+          },
+          scrollbarDragMove: function () {
+            swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+            sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+            scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+            _scrollbar.css('width', scrollbarWid + 'px')
 
-        },
-        scrollbarDragEnd: function () {
-          swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
-          sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
-          scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
-          _scrollbar.css('width', scrollbarWid + 'px')
+          },
+          scrollbarDragEnd: function () {
+            swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+            sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+            scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+            _scrollbar.css('width', scrollbarWid + 'px')
+          }
         }
-      }
-    });
+      });
 
+    }
     var msnry = new Masonry('.news-masonry__cont', {
       itemSelector: '.box',
       percentPosition: true
     });
+
+    $(window).resize(function () {
+      if($(window).width() <= 767) {
+        // news swiper
+        var swiperCont = $('.news-swiper');
+        var _scrollbar = swiperCont.find('.slide-bar');
+        var swiperScrollbar = '';
+        var scrollbarWid = 0;
+        var translate = [];
+        var sMatrix = '';
+
+        var newsSwiper = new Swiper('.news-swiper.swiper-container', {
+          slidesPerView: 'auto',
+          observeParents: true,
+          observeSlideChildren: true,
+          observer: true,
+          scrollbar: {
+            el: ".news-swiper .swiper-scrollbar",
+            hide: false,
+            draggable: true
+          },
+          on: {
+            sliderMove: function () {
+              swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+              sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+              scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+              _scrollbar.css('width', scrollbarWid + 'px')
+
+            },
+            transitionEnd: function () {
+              swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+              sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+              scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+              _scrollbar.css('width', scrollbarWid + 'px')
+            },
+            scrollbarDragMove: function () {
+              swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+              sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+              scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+              _scrollbar.css('width', scrollbarWid + 'px')
+
+            },
+            scrollbarDragEnd: function () {
+              swiperScrollbar = $('.news-swiper .swiper-scrollbar-drag');
+              sMatrix = swiperScrollbar.css("transform").replace(/[^0-9\-.,]/g, '').split(',')[4];
+              scrollbarWid = Number(swiperScrollbar.outerWidth() - 10) + Number(sMatrix);
+              _scrollbar.css('width', scrollbarWid + 'px')
+            }
+          }
+        });
+
+      }
+    })
   </script>
 </body>
 
